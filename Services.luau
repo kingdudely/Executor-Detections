@@ -7,6 +7,7 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
 local detectedServices = {
+	"UGCValidationService", --
 	"AppUpdateService",
 	"AccountService",
 	"DataModelPatchService",
@@ -19,9 +20,7 @@ end
 
 RunService.PreRender:Connect(function()
 	for _, name in detectedServices do
-		name += "\000"
-
-		if game:FindService(name) then
+		if game:FindService(name) or game:FindService(name + "\000") then
 			detected()
 			break
 		end
